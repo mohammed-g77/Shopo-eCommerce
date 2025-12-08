@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { MagnifyingGlassIcon, UserIcon, ShoppingCartIcon, HeartIcon, Bars3Icon, XMarkIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 
 const Navbar = () => {
@@ -12,9 +13,9 @@ const Navbar = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-9">
             <div className="hidden md:flex items-center space-x-6">
-              <a href="#" className="hover:text-yellow-400 transition-colors">Account</a>
-              <a href="#" className="hover:text-yellow-400 transition-colors">Track Order</a>
-              <a href="#" className="hover:text-yellow-400 transition-colors">Support</a>
+              <Link to="#" className="hover:text-yellow-400 transition-colors">Account</Link>
+              <Link to="#" className="hover:text-yellow-400 transition-colors">Track Order</Link>
+              <Link to="#" className="hover:text-yellow-400 transition-colors">Support</Link>
             </div>
             <div className="md:hidden">
               <span className="text-xs">Welcome to Shopo</span>
@@ -44,9 +45,9 @@ const Navbar = () => {
             
              
             <div className="flex-shrink-0">
-              <a href="/" className="text-3xl font-bold text-gray-900">
+              <Link to="/" className="text-3xl font-bold text-gray-900">
                 Shopo<span className="text-yellow-400">.</span>
-              </a>
+              </Link>
             </div>
 
           
@@ -71,12 +72,12 @@ const Navbar = () => {
                   0
                 </span>
               </button>
-              <button className="relative text-gray-700 hover:text-yellow-500 transition-colors">
+              <Link to="/cart" className="relative text-gray-700 hover:text-yellow-500 transition-colors">
                 <ShoppingCartIcon className="h-6 w-6" />
                 <span className="absolute -top-2 -right-2 bg-yellow-400 text-xs text-black font-bold rounded-full h-5 w-5 flex items-center justify-center">
                   0
                 </span>
-              </button>
+              </Link>
               <button className="text-gray-700 hover:text-yellow-500 transition-colors">
                 <UserIcon className="h-6 w-6" />
               </button>
@@ -113,23 +114,23 @@ const Navbar = () => {
              
               {isCategoryOpen && (
                 <div className="absolute top-full left-0 mt-2 w-64 bg-white shadow-lg rounded-md border border-gray-200 z-50">
-                  <a href="#" className="block px-4 py-3 hover:bg-gray-50 text-gray-700 hover:text-yellow-500 transition-colors">Electronics</a>
-                  <a href="#" className="block px-4 py-3 hover:bg-gray-50 text-gray-700 hover:text-yellow-500 transition-colors">Fashion</a>
-                  <a href="#" className="block px-4 py-3 hover:bg-gray-50 text-gray-700 hover:text-yellow-500 transition-colors">Home & Garden</a>
-                  <a href="#" className="block px-4 py-3 hover:bg-gray-50 text-gray-700 hover:text-yellow-500 transition-colors">Sports</a>
-                  <a href="#" className="block px-4 py-3 hover:bg-gray-50 text-gray-700 hover:text-yellow-500 transition-colors">Books</a>
+                  <Link to="#" className="block px-4 py-3 hover:bg-gray-50 text-gray-700 hover:text-yellow-500 transition-colors">Electronics</Link>
+                  <Link to="#" className="block px-4 py-3 hover:bg-gray-50 text-gray-700 hover:text-yellow-500 transition-colors">Fashion</Link>
+                  <Link to="#" className="block px-4 py-3 hover:bg-gray-50 text-gray-700 hover:text-yellow-500 transition-colors">Home & Garden</Link>
+                  <Link to="#" className="block px-4 py-3 hover:bg-gray-50 text-gray-700 hover:text-yellow-500 transition-colors">Sports</Link>
+                  <Link to="#" className="block px-4 py-3 hover:bg-gray-50 text-gray-700 hover:text-yellow-500 transition-colors">Books</Link>
                 </div>
               )}
             </div>
 
             
             <nav className="flex space-x-8 flex-1">
-              <a href="#" className="text-gray-700 hover:text-yellow-500 font-medium transition-colors">Home</a>
-              <a href="#" className="text-gray-700 hover:text-yellow-500 font-medium transition-colors">Shop</a>
-              <a href="#" className="text-gray-700 hover:text-yellow-500 font-medium transition-colors">Pages</a>
-              <a href="#" className="text-gray-700 hover:text-yellow-500 font-medium transition-colors">About</a>
-              <a href="#" className="text-gray-700 hover:text-yellow-500 font-medium transition-colors">Blog</a>
-              <a href="#" className="text-gray-700 hover:text-yellow-500 font-medium transition-colors">Contact</a>
+              <Link to="/home" className="text-gray-700 hover:text-yellow-500 font-medium transition-colors">Home</Link>
+              <Link to="#" className="text-gray-700 hover:text-yellow-500 font-medium transition-colors">Shop</Link>
+              <Link to="#" className="text-gray-700 hover:text-yellow-500 font-medium transition-colors">Pages</Link>
+              <Link to="#" className="text-gray-700 hover:text-yellow-500 font-medium transition-colors">About</Link>
+              <Link to="#" className="text-gray-700 hover:text-yellow-500 font-medium transition-colors">Blog</Link>
+              <Link to="#" className="text-gray-700 hover:text-yellow-500 font-medium transition-colors">Contact</Link>
             </nav>
 
              
@@ -159,12 +160,12 @@ const Navbar = () => {
 
           
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-yellow-500 hover:bg-gray-50">Home</a>
-            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-yellow-500 hover:bg-gray-50">Shop</a>
-            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-yellow-500 hover:bg-gray-50">Pages</a>
-            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-yellow-500 hover:bg-gray-50">About</a>
-            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-yellow-500 hover:bg-gray-50">Blog</a>
-            <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-yellow-500 hover:bg-gray-50">Contact</a>
+            <Link to="/home" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-yellow-500 hover:bg-gray-50">Home</Link>
+            <Link to="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-yellow-500 hover:bg-gray-50">Shop</Link>
+            <Link to="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-yellow-500 hover:bg-gray-50">Pages</Link>
+            <Link to="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-yellow-500 hover:bg-gray-50">About</Link>
+            <Link to="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-yellow-500 hover:bg-gray-50">Blog</Link>
+            <Link to="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-yellow-500 hover:bg-gray-50">Contact</Link>
           </div>
 
           
@@ -176,12 +177,12 @@ const Navbar = () => {
                   0
                 </span>
               </button>
-              <button className="text-gray-600 hover:text-yellow-500 relative">
+              <Link to="/cart" className="text-gray-600 hover:text-yellow-500 relative">
                 <ShoppingCartIcon className="h-6 w-6" />
                 <span className="absolute -top-1 -right-2 bg-yellow-400 text-xs text-black font-bold rounded-full h-4 w-4 flex items-center justify-center">
                   0
                 </span>
-              </button>
+              </Link>
               <button className="text-gray-600 hover:text-yellow-500">
                 <UserIcon className="h-6 w-6" />
               </button>
