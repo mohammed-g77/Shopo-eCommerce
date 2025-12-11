@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MagnifyingGlassIcon, UserIcon, ShoppingCartIcon, HeartIcon, Bars3Icon, XMarkIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <header className="w-full bg-white">
@@ -134,7 +135,9 @@ const Navbar = () => {
             </nav>
 
              
-            <button className="bg-gray-900 hover:bg-gray-800 text-white px-6 py-2 rounded transition-colors font-medium">
+            <button 
+              onClick={() => navigate("/register")}
+              className="bg-gray-900 hover:bg-gray-800 text-white px-6 py-2 rounded transition-colors font-medium">
               Shop Now
             </button>
           </div>
