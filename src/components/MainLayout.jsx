@@ -1,17 +1,22 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Navbar from './Navbar';
+import { Box } from '@mui/material';
+import TopBar from './TopBar';
+import Header from './Header';
+import MainNavbar from './MainNavbar';
 import Footer from './Footer';
 
 const MainLayout = () => {
   return (
-    <div className="flex flex-col min-h-screen font-sans text-gray-900">
-      <Navbar />
-      <main className="flex-grow">
+    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <TopBar />
+      <Header />
+      <MainNavbar />
+      <Box component="main" sx={{ flexGrow: 1 }}>
         <Outlet />
-      </main>
+      </Box>
       <Footer />
-    </div>
+    </Box>
   );
 };
 

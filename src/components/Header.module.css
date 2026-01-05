@@ -1,0 +1,128 @@
+.header {
+    background-color: #ffffff;
+    padding: 16px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.headerContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.logoImage {
+    height: 36px;
+    width: auto;
+}
+
+.logoDot {
+    color: #ffbb38;
+}
+
+.searchContainer {
+    display: flex;
+    flex: 1;
+    max-width: 600px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.searchContainer:focus-within {
+    border-color: #2b6b6b;
+}
+
+.categorySelect {
+    min-width: 150px;
+    background-color: #f9fafb;
+    border-radius: 0 !important;
+}
+
+.categorySelect fieldset {
+    border: none !important;
+    border-right: 1px solid #e5e7eb !important;
+}
+
+.searchInput {
+    flex: 1;
+}
+
+.searchInput fieldset {
+    border: none !important;
+}
+
+.searchInput input {
+    padding: 10px 16px;
+}
+
+.searchButton {
+    background-color: #2b6b6b !important;
+    color: #ffffff !important;
+    border-radius: 6px !important;
+    margin-right: 4px;
+    width: 40px;
+    height: 40px;
+}
+
+.searchButton:hover {
+    background-color: #3d8888 !important;
+}
+
+.iconContainer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.iconButton {
+    color: #1a1a1a !important;
+    transition: color 0.2s ease !important;
+}
+
+.iconButton:hover {
+    color: #2b6b6b !important;
+    background-color: rgba(43, 107, 107, 0.08) !important;
+}
+
+.cartLink,
+.profileLink {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .searchContainer {
+        max-width: 400px;
+    }
+
+    .categorySelect {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .headerContent {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .searchContainer {
+        order: 3;
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .iconContainer {
+        gap: 4px;
+    }
+}

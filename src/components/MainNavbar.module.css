@@ -1,0 +1,148 @@
+.navbar {
+    background-color: #2b6b6b;
+    padding: 0;
+}
+
+.navbarContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+}
+
+.categoryButton {
+    background-color: #ffffff !important;
+    color: #1a1a1a !important;
+    font-weight: 600 !important;
+    padding: 10px 20px !important;
+    border-radius: 6px !important;
+    text-transform: none !important;
+    box-shadow: none !important;
+}
+
+.categoryButton:hover {
+    background-color: #f5f5f5 !important;
+}
+
+.navLinks {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex: 1;
+    justify-content: center;
+}
+
+.navLink {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 8px 0;
+    position: relative;
+    transition: opacity 0.2s ease;
+}
+
+.navLink:hover {
+    opacity: 0.85;
+}
+
+.navLink::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #61dafbaa;
+    transition: width 0.3s ease;
+}
+
+.navLink:hover::after {
+    width: 100%;
+}
+
+.sellerButton {
+    background-color: #ffbb38 !important;
+    color: #1a1a1a !important;
+    font-weight: 600 !important;
+    padding: 10px 24px !important;
+    border-radius: 6px !important;
+    text-transform: none !important;
+    box-shadow: none !important;
+}
+
+.sellerButton:hover {
+    background-color: #e6a52e !important;
+}
+
+.mobileMenuButton {
+    display: none !important;
+    color: #ffffff !important;
+}
+
+/* Drawer Styles */
+.drawer .MuiDrawer-paper {
+    width: 300px;
+}
+
+.drawerContent {
+    width: 300px;
+}
+
+.drawerHeader {
+    background-color: #2b6b6b;
+    color: #ffffff;
+    padding: 20px;
+}
+
+.drawerTitle {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.categoryList {
+    padding: 0 !important;
+}
+
+.categoryItem {
+    border-bottom: 1px solid #e5e7eb;
+    padding: 12px 20px !important;
+}
+
+.categoryItem:hover {
+    background-color: #f9fafb !important;
+}
+
+.subcategoryItem {
+    padding-left: 40px !important;
+    color: #6b7280;
+}
+
+.subcategoryItem:hover {
+    background-color: #f0fafa !important;
+    color: #2b6b6b;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .navLinks {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .categoryButton,
+    .navLinks,
+    .sellerButton {
+        display: none !important;
+    }
+
+    .mobileMenuButton {
+        display: flex !important;
+    }
+
+    .navbarContent {
+        justify-content: flex-end;
+    }
+}

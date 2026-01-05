@@ -1,0 +1,41 @@
+.adsSection {
+    padding: 40px 0;
+    background-color: #ffffff;
+}
+
+.adCard {
+    display: block;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.adCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.adImage {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    transition: transform 0.4s ease;
+}
+
+.adCard:hover .adImage {
+    transform: scale(1.03);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .adsSection {
+        padding: 30px 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .adsSection {
+        padding: 20px 0;
+    }
+}
