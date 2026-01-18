@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import Hero from '../../components/Hero';
-import CategoryStrip from '../../components/CategoryStrip';
+import Categories from '../../components/categories/Categories';
 import ProductTabs from '../../components/ProductTabs';
 import FlashDeals from '../../components/FlashDeals';
 import AdsBanners from '../../components/AdsBanners';
@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <Box>
       <Hero />
-      <CategoryStrip />
+      <Categories/>
       <ProductTabs />
       <AdsBanners />
       <FlashDeals />

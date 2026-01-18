@@ -11,23 +11,43 @@ import Divider from '@mui/material/Divider';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const [rememberMe, setRememberMe] = useState(false);
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [rememberMe, setRememberMe] = useState(false);
 
-    const loginForm = async (values) => {
-        console.log(values);
-        try {
-            const response = await axios.post('https://knowledgeshop.runasp.net/api/auth/Account/Login', values);
-            console.log(response);
-            if(response.status === 200) {
-              localStorage.setItem('token', response.data.token);
-              localStorage.setItem('user', JSON.stringify(response.data.user));
-              window.location.href = '/';
-            }
-        } catch(err) {
-            console.log(err);
-        }
-    };
+  const loginForm = async (values) => {
+    console.log(values);
+    try {
+      const response = await axios.post(
+        'https://knowledgeshop.runasp.net/api/auth/Account/Login',
+        values
+      );
+
+      console.log('Login Response Data:', response.data);
+
+      const { accessToken, refreshToken, accessTokenExpiresAt, message, success } = response.data;
+
+      if (response.status === 200 && accessToken) {
+        localStorage.setItem('token', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem('tokenExpiry', accessTokenExpiresAt);
+
+        console.log('Login successful:', message);
+        window.location.href = '/';  
+      } else {
+        console.warn('Login failed:', message);
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+
+      if (err.response) {
+        console.log('Error Response:', err.response.data);
+      } else if (err.request) {
+        console.log('No response received:', err.request);
+      } else {
+        console.log('General Error:', err.message);
+      }
+    }
+  };
 
     return (
         <Box sx={{ 

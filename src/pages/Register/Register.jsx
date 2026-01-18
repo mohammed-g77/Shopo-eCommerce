@@ -75,72 +75,75 @@ export default function Register({ illustrationSrc = "/login_illustration.png" }
     setToast((t) => ({ ...t, open: false }));
   };
 
-  const registerForm = async (values) => {
-    // payload حسب الـ API (بنستثني confirmPassword و agreeTerms)
-    const payload = {
-      userName: values.userName?.trim(),
-      fullName: values.fullName?.trim(),
-      email: values.email?.trim(),
-      password: values.password,
-      phoneNumber: values.phoneNumber?.trim() || null,
-    };
-
-    try {
-      const response = await axios.post(API_URL, payload, {
-        headers: { "Content-Type": "application/json" },
-      });
-
-      console.log("REGISTER RESPONSE:", response?.data ?? response);
-
-      // ✅ نجاح -> روح على login
-      openToast("success", "Account created successfully. Redirecting to login...");
-      reset();
-
-      redirectTimerRef.current = setTimeout(() => {
-        navigate("/login", { replace: true });
-      }, 800);
-    } catch (err) {
-      console.log("REGISTER ERROR:", err);
-      const status = err?.response?.status;
-      const data = err?.response?.data;
-
-      console.log("REGISTER ERROR STATUS:", status);
-      console.log("REGISTER ERROR DATA:", data);
-
-      // إذا السيرفر رجّع errors object: اربط كل خطأ بالحقل الصحيح
-      const apiErrors = data?.errors;
-      if (apiErrors && typeof apiErrors === "object") {
-        const fieldMap = {
-          Email: "email",
-          email: "email",
-          UserName: "userName",
-          userName: "userName",
-          FullName: "fullName",
-          fullName: "fullName",
-          Password: "password",
-          password: "password",
-          PhoneNumber: "phoneNumber",
-          phoneNumber: "phoneNumber",
-        };
-
-        Object.entries(apiErrors).forEach(([key, msgs]) => {
-          const fieldName = fieldMap[key] || key;
-          const message = Array.isArray(msgs) ? msgs[0] : String(msgs);
-          if (fieldName) setError(fieldName, { type: "server", message });
-        });
-      }
-
-      // Toast عام
-      const serverMsg =
-        data?.message ||
-        data?.title ||
-        data?.error ||
-        (typeof data === "string" ? data : null) ||
-        "Registration failed";
-
-      openToast("error", serverMsg);
-    }
+const registerForm = async (values) => {
+  const payload = {
+    userName: values.userName?.trim(),
+    fullName: values.fullName?.trim(),
+    email: values.email?.trim(),
+    password: values.password,
+    phoneNumber: values.phoneNumber?.trim() || null,
   };
+
+  try {
+    const response = await axios.post(API_URL, payload, {
+      headers: { "Content-Type": "application/json" },
+    });
+
+    console.log("REGISTER RESPONSE:", response?.data ?? response);
+
+     await axios.post("https://knowledgeshop.runasp.net/api/auth/Account/SendCode", {
+      email: payload.email,
+    });
+
+     openToast("success", "  تم إنشاء الحساب بنجاح. تم إرسال رابط التفعيل إلى بريدك الإلكتروني.");
+
+    reset();
+
+     redirectTimerRef.current = setTimeout(() => {
+      navigate("/login", { replace: true });
+    }, 3000);
+
+  } catch (err) {
+    console.log("REGISTER ERROR:", err);
+    const status = err?.response?.status;
+    const data = err?.response?.data;
+
+    console.log("REGISTER ERROR STATUS:", status);
+    console.log("REGISTER ERROR DATA:", data);
+
+    const apiErrors = data?.errors;
+    if (apiErrors && typeof apiErrors === "object") {
+      const fieldMap = {
+        Email: "email",
+        email: "email",
+        UserName: "userName",
+        userName: "userName",
+        FullName: "fullName",
+        fullName: "fullName",
+        Password: "password",
+        password: "password",
+        PhoneNumber: "phoneNumber",
+        phoneNumber: "phoneNumber",
+      };
+
+      Object.entries(apiErrors).forEach(([key, msgs]) => {
+        const fieldName = fieldMap[key] || key;
+        const message = Array.isArray(msgs) ? msgs[0] : String(msgs);
+        if (fieldName) setError(fieldName, { type: "server", message });
+      });
+    }
+
+    const serverMsg =
+      data?.message ||
+      data?.title ||
+      data?.error ||
+      (typeof data === "string" ? data : null) ||
+      "Registration failed";
+
+    openToast("error", serverMsg);
+  }
+};
+
 
   return (
     <div className="register-page">
