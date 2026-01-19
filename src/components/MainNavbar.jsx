@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Box,
@@ -9,22 +9,37 @@ import {
   ListItemButton,
   ListItemText,
   IconButton,
-  Collapse,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import { menuCategories } from '../data/categories';
+import axios from 'axios';
+
 import styles from './MainNavbar.module.css';
 
 const MainNavbar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [expandedCategory, setExpandedCategory] = useState(null);
+  const [categories, setCategories] = useState([]);
 
-  const handleCategoryClick = (categoryId) => {
-    setExpandedCategory(expandedCategory === categoryId ? null : categoryId);
-  };
+  // 🔹 Fetch categories from API
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await axios.get(
+          'https://knowledgeshop.runasp.net/api/Categories',
+          {
+            headers: {
+              'Accept-Language': 'en',
+            },
+          }
+        );
+        setCategories(res.data.response || []);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const navLinks = [
     { name: 'Home', path: '/home' },
@@ -33,7 +48,6 @@ const MainNavbar = () => {
     { name: 'About', path: '/about' },
     { name: 'Blog', path: '/blog' },
     { name: 'Contact', path: '/contact' },
-    
   ];
 
   return (
@@ -60,17 +74,22 @@ const MainNavbar = () => {
             ))}
           </Box>
 
-          {/* Become a Seller Button */}
-          <Button
-            variant="contained"
-            className={styles.sellerButton}
-            component={Link}
-            to="/register"
-          >
-            Become a Seller
-          </Button>
+          {/* Auth Buttons */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Link to="/login" className={styles.navLink}>
+              Login
+            </Link>
+            <Button
+              variant="contained"
+              className={styles.sellerButton}
+              component={Link}
+              to="/register"
+            >
+              Register
+            </Button>
+          </Box>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu */}
           <IconButton
             className={styles.mobileMenuButton}
             onClick={() => setDrawerOpen(true)}
@@ -91,36 +110,21 @@ const MainNavbar = () => {
           <Box className={styles.drawerHeader}>
             <span className={styles.drawerTitle}>All Categories</span>
           </Box>
-          
+
           <List className={styles.categoryList}>
-            {menuCategories.map((category) => (
-              <React.Fragment key={category.id}>
-                <ListItem disablePadding>
-                  <ListItemButton
-                    onClick={() => handleCategoryClick(category.id)}
-                    className={styles.categoryItem}
-                  >
-                    <ListItemText primary={category.name} />
-                    {expandedCategory === category.id ? <ExpandLess /> : <ExpandMore />}
-                  </ListItemButton>
-                </ListItem>
-                
-                <Collapse in={expandedCategory === category.id} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    {category.subcategories.map((sub, index) => (
-                      <ListItemButton
-                        key={index}
-                        className={styles.subcategoryItem}
-                        component={Link}
-                        to={`/shop/${category.name.toLowerCase()}/${sub.toLowerCase()}`}
-                        onClick={() => setDrawerOpen(false)}
-                      >
-                        <ListItemText primary={sub} />
-                      </ListItemButton>
-                    ))}
-                  </List>
-                </Collapse>
-              </React.Fragment>
+            {categories.map((category) => (
+              <ListItem disablePadding key={category.id}>
+                <ListItemButton
+                  component={Link}
+                  to={`/shop/${category.name
+                    .toLowerCase()
+                    .replace(/\s+/g, '-')}`}
+                  className={styles.categoryItem}
+                  onClick={() => setDrawerOpen(false)}
+                >
+                  <ListItemText primary={category.name} />
+                </ListItemButton>
+              </ListItem>
             ))}
           </List>
         </Box>
