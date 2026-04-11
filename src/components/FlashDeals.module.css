@@ -1,131 +1,147 @@
+/* ── Section ──────────────────────────────────────────────────── */
 .flashSection {
-    padding: 60px 0;
+  background-color: #b5dff7;   /* light blue, matches reference */
+  padding: 0;
+  margin: 40px 0;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.contentWrapper {
-    padding: 20px 0;
+/* ── Inner flex row ───────────────────────────────────────────── */
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 40px 0;
 }
 
-.flashTitle {
-    font-size: 42px !important;
-    font-weight: 700 !important;
-    color: #1a1a1a;
-    margin-bottom: 8px !important;
-    line-height: 1.2 !important;
+/* ── Left column ─────────────────────────────────────────────── */
+.left {
+  flex: 1;
+  max-width: 50%;
 }
 
-.flashSubtitle {
-    color: #6b7280;
-    font-size: 16px;
-    margin-bottom: 32px;
+/* ── Countdown circles ───────────────────────────────────────── */
+.countdown {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
-.countdownWrapper {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 32px;
+.circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
 }
 
-.timeBlock {
-    background-color: #ffffff;
-    border-radius: 8px;
-    padding: 16px 20px;
+.circleValue {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.circleLabel {
+  font-size: 11px;
+  color: #555;
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+/* ── Title & subtitle ────────────────────────────────────────── */
+.title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0 0 10px;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #4a4a4a;
+  margin: 0 0 24px;
+  line-height: 1.6;
+  max-width: 380px;
+}
+
+/* ── Shop Now button ─────────────────────────────────────────── */
+.shopBtn {
+  display: inline-block;
+  padding: 11px 28px;
+  background-color: #ffbb38;
+  color: #1a1a1a;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 4px;
+  letter-spacing: 0.2px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.shopBtn:hover {
+  background-color: #e6a830;
+  transform: translateX(3px);
+}
+
+/* ── Right image ─────────────────────────────────────────────── */
+.right {
+  flex-shrink: 0;
+  width: 48%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+ 
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .inner {
+    flex-direction: column;
+    padding: 32px 0;
     text-align: center;
-    min-width: 80px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-}
+  }
 
-.timeValue {
-    font-size: 28px;
-    font-weight: 700;
-    color: #1a1a1a;
-    line-height: 1;
-    margin-bottom: 4px;
-}
-
-.timeLabel {
-    font-size: 12px;
-    color: #9ca3af;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.shopButton {
-    background-color: #ffbb38 !important;
-    color: #1a1a1a !important;
-    padding: 14px 32px !important;
-    font-weight: 600 !important;
-    font-size: 15px !important;
-    text-transform: none !important;
-    border-radius: 6px !important;
-    box-shadow: none !important;
-    transition: all 0.2s ease !important;
-}
-
-.shopButton:hover {
-    background-color: #e6a830 !important;
-    box-shadow: 0 4px 16px rgba(255, 187, 56, 0.4) !important;
-}
-
-.imageWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.campaignImage {
+  .left {
     max-width: 100%;
-    height: auto;
-    border-radius: 12px;
+  }
+
+  .countdown {
+    justify-content: center;
+  }
+
+  .subtitle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .right {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .title {
+    font-size: 28px;
+  }
 }
 
-/* Responsive */
-@media (max-width: 992px) {
-    .flashSection {
-        padding: 40px 0;
-    }
+@media (max-width: 480px) {
+  .circle {
+    width: 64px;
+    height: 64px;
+  }
 
-    .flashTitle {
-        font-size: 32px !important;
-    }
+  .circleValue {
+    font-size: 20px;
+  }
 
-    .contentWrapper {
-        text-align: center;
-    }
-
-    .countdownWrapper {
-        justify-content: center;
-    }
-
-    .imageWrapper {
-        margin-top: 24px;
-    }
-}
-
-@media (max-width: 600px) {
-    .flashTitle {
-        font-size: 26px !important;
-    }
-
-    .countdownWrapper {
-        gap: 10px;
-    }
-
-    .timeBlock {
-        padding: 12px 14px;
-        min-width: 60px;
-    }
-
-    .timeValue {
-        font-size: 22px;
-    }
-
-    .timeLabel {
-        font-size: 10px;
-    }
-
-    .shopButton {
-        padding: 12px 24px !important;
-        font-size: 14px !important;
-    }
+  .title {
+    font-size: 24px;
+  }
 }

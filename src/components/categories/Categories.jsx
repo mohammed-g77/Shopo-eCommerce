@@ -1,5 +1,6 @@
+import React, { useState, useEffect } from 'react';
+import axiosInstance from '../../api/axiosInstance';
 import { Box, Typography, CircularProgress, Grid, Container } from '@mui/material';
-import { useCategories } from "../../hooks/useCategories";
 
 // MUI Icons
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
@@ -28,13 +29,56 @@ const getCategoryIcon = (name) => {
 };
 
 export default function Categories() {
-  const { isLoading, isError, data } = useCategories();
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
-  if (isLoading) return <CircularProgress />;
-  if (isError) return <Typography color="error">Error</Typography>;
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setIsLoading(true);
+        setIsError(false);
+
+        // Fetching from the public Categories endpoint using your axiosInstance
+        const response = await axiosInstance.get('/Categories', {
+          headers: { "Accept-Language": "en" }
+        });
+
+        // safely extract the array
+        let categoryList = [];
+        if (Array.isArray(response.data)) {
+          categoryList = response.data;
+        } else if (Array.isArray(response.data?.response)) {
+          categoryList = response.data.response;
+        } else if (Array.isArray(response.data?.response?.data)) {
+          categoryList = response.data.response.data;
+        }
+
+        setData(categoryList);
+      } catch (error) {
+        console.error('Failed to fetch categories:', error);
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  if (isLoading) return (
+    <Box sx={{ py: 5, display: 'flex', justifyContent: 'center' }}>
+      <CircularProgress />
+    </Box>
+  );
+
+  if (isError) return (
+    <Box sx={{ py: 5, textAlign: 'center' }}>
+      <Typography color="error">Error loading categories.</Typography>
+    </Box>
+  );
 
   return (
-    
     <Box sx={{ py: 5, textAlign: 'center' }}>
       <Container>
         <Box
@@ -44,27 +88,27 @@ export default function Categories() {
             justifyContent: "space-between",
             mb: 4,
           }}
-      >
-        <Typography variant="h4" sx={{ fontWeight: 700 }}>
-          My Market Category
-        </Typography>
-
-        <Typography
-          sx={{
-            fontWeight: 500,
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            gap: 1,
-            color: "#000",
-            "&:hover": {
-              textDecoration: "underline",
-            },
-          }}
         >
-          View More →
-        </Typography>
-      </Box>
+          <Typography variant="h4" sx={{ fontWeight: 700 }}>
+            My Market Category
+          </Typography>
+
+          <Typography
+            sx={{
+              fontWeight: 500,
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+              color: "#000",
+              "&:hover": {
+                textDecoration: "underline",
+              },
+            }}
+          >
+            View More →
+          </Typography>
+        </Box>
 
         <Grid container spacing={4} justifyContent="center">
           {data.map((cat) => (

@@ -32,7 +32,8 @@ const MainNavbar = () => {
             },
           }
         );
-        setCategories(res.data.response || []);
+        const data = res.data?.response ?? res.data;
+        setCategories(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error('Error fetching categories:', error);
       }

@@ -45,21 +45,21 @@ export const heroBanners = [
 export const promoBanners = [
   {
     id: 1,
-    title: 'Get the best deals',
-    subtitle: 'Sales 40%',
-    description: 'Get trendy items',
-    image: adsBanner1,
+    title: 'Best wireless\nFurniture',
+    subtitle: 'HEADSET',
+    description: '',
+    image: adsBanner2,
     link: '/shop/deals',
-    bgColor: '#fff9e6',
+    bgColor: '#f6c4c4',
   },
   {
     id: 2,
-    title: 'Trendy Collection',
-    subtitle: 'New Season',
-    description: 'Best deals on furniture',
-    image: adsBanner2,
+    title: 'Furniture\nSmart Sofa 3',
+    subtitle: 'SMART WATCH',
+    description: '',
+    image: adsBanner1,
     link: '/shop/collection',
-    bgColor: '#e8f4f8',
+    bgColor: '#c9e0f0',
   },
 ];
 
@@ -92,7 +92,7 @@ export const adsData = [
 
 export const flashDealData = {
   title: 'WOO! Flash Sale',
-  subtitle: 'Limited time offer',
+  subtitle: 'You get into the 2k+ best Products in Flash offer with a special-shaped sofa for sale.',
   image: campaignCover,
   endDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 3 days from now
   bgColor: '#ffebb2',

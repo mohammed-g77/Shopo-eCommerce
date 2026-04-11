@@ -1,0 +1,197 @@
+/* ── Section wrapper ──────────────────────────────────────────── */
+.section {
+  padding: 60px 0;
+  background-color: #fff;
+}
+
+/* ── Header ───────────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.viewMore {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a1a;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.viewMore:hover {
+  color: #2b6b6b;
+}
+
+/* ── Grid: 3 columns ──────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  background-color: #e5e7eb;
+  /* acts as the grid line colour */
+  border: 1px solid #e5e7eb;
+}
+
+/* ── Card ─────────────────────────────────────────────────────── */
+.card {
+  background-color: #f7f8f9;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.card:hover {
+  background-color: #fff;
+}
+
+/* ── Image box ────────────────────────────────────────────────── */
+.imageBox {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background-color: #f7f8f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.35s ease;
+}
+
+.card:hover .img {
+  transform: scale(1.04);
+}
+
+/* ── Side action buttons (right edge, vertical stack) ─────────── */
+.sideActions {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%) translateX(60px);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+  z-index: 3;
+}
+
+.card:hover .sideActions {
+  transform: translateY(-50%) translateX(0);
+  opacity: 1;
+}
+
+.iconBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  color: #444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: background 0.2s, color 0.2s;
+}
+
+.iconBtn:hover {
+  background: #2b6b6b;
+  color: #fff;
+}
+
+/* ── Add To Cart overlay bar ──────────────────────────────────── */
+.addToCartBar {
+  position: absolute;
+  bottom: -48px;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: bottom 0.3s ease;
+  z-index: 3;
+}
+
+.card:hover .addToCartBar {
+  bottom: 0;
+}
+
+.addToCartBtn {
+  width: 100%;
+  padding: 12px 0;
+  background-color: #2b6b6b;
+  color: #fff;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.addToCartBtn:hover {
+  background-color: #224f4f;
+}
+
+/* ── Product info ─────────────────────────────────────────────── */
+.info {
+  padding: 14px 16px 18px;
+  text-align: center;
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin: 0 0 6px;
+  line-height: 1.4;
+}
+
+.prices {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.salePrice {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ef262c;
+}
+
+.oldPrice {
+  font-size: 13px;
+  color: #9ca3af;
+  text-decoration: line-through;
+}
+
+/* ── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -4,6 +4,7 @@ import Hero from '../../components/Hero';
 import Categories from '../../components/categories/Categories';
 import ProductTabs from '../../components/ProductTabs';
 import FlashDeals from '../../components/FlashDeals';
+import FeaturedProducts from '../../components/FeaturedProducts';
 import AdsBanners from '../../components/AdsBanners';
 import PromoBanners from '../../components/PromoBanners';
 import Newsletter from '../../components/Newsletter';
@@ -12,11 +13,12 @@ const Home = () => {
   return (
     <Box>
       <Hero />
-      <Categories/>
-      <ProductTabs />
-      <AdsBanners />
+      <Categories />
+      <FeaturedProducts />
       <FlashDeals />
       <PromoBanners />
+      <ProductTabs />
+      <AdsBanners />
       <Newsletter />
     </Box>
   );
