@@ -5,10 +5,11 @@ import Categories from '../../components/categories/Categories';
 import ProductTabs from '../../components/ProductTabs';
 import FlashDeals from '../../components/FlashDeals';
 import FeaturedProducts from '../../components/FeaturedProducts';
-import AdsBanners from '../../components/AdsBanners';
+import PopularSales from '../../components/PopularSales';
 import PromoBanners from '../../components/PromoBanners';
 import TopSellingProducts from '../../components/TopSellingProducts/TopSellingProducts';
 import Newsletter from '../../components/Newsletter';
+import NewArrivals from '../../components/NewArrivals';
 
 const Home = () => {
   return (
@@ -20,7 +21,8 @@ const Home = () => {
       <PromoBanners />
       <ProductTabs />
       <TopSellingProducts />
-      <AdsBanners />
+      <NewArrivals />
+      <PopularSales />
       <Newsletter />
     </Box>
   );
