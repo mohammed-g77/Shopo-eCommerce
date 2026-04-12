@@ -1,12 +1,11 @@
 import React from 'react';
+import { Box } from '@mui/material';
+ 
 
-const Cart = () => {
+export default function Cart() {
   return (
-    <div className="container mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-4 text-gray-800">Shopping Cart</h1>
-      <p className="text-gray-600">Your cart items will appear here.</p>
-    </div>
+    <Box>
+     
+    </Box>
   );
-};
-
-export default Cart;
+}
