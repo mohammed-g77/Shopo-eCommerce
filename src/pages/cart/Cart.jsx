@@ -2,8 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
-import useCart from '../../hooks/useCart';
-import authAxiosInstance from '../../api/authAxiosInstance';
+import useCart, { useUpdateCartItem, useRemoveCartItem, useClearCart } from '../../hooks/useCart';
 import Newsletter from '../../components/Newsletter';
 import styles from './Cart.module.css';
 
@@ -37,34 +36,14 @@ export default function Cart() {
   const shippingCost = SHIPPING_OPTIONS.find((s) => s.id === shipping)?.price ?? 0;
   const total = subtotal + shippingCost;
 
-  
-  const removeMutation = useMutation({
-    mutationFn: async (cartId) => {
-      await authAxiosInstance.delete(`/Carts/${cartId}`);
-    },
-    onSuccess: () => queryClient.invalidateQueries(['carts']),
-  });
-
-  
-  const clearMutation = useMutation({
-    mutationFn: async () => {
-      await authAxiosInstance.delete('/Carts/clear');
-    },
-    onSuccess: () => queryClient.invalidateQueries(['carts']),
-  });
-
-  
-  const updateMutation = useMutation({
-    mutationFn: async ({ cartId, quantity }) => {
-      await authAxiosInstance.patch(`/Carts/${cartId}`, { quantity });
-    },
-    onSuccess: () => queryClient.invalidateQueries(['carts']),
-  });
+  const removeMutation = useRemoveCartItem();
+  const clearMutation = useClearCart();
+  const updateMutation = useUpdateCartItem();
 
   const handleQuantityChange = (cartId, currentQty, delta) => {
     const newQty = currentQty + delta;
     if (newQty < 1) return;
-    updateMutation.mutate({ cartId, quantity: newQty });
+    updateMutation.mutate({ cartItemId: cartId, quantity: newQty });
   };
 
   

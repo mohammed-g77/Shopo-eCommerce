@@ -6,7 +6,7 @@ import { CircularProgress } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import useCart from '../../hooks/useCart';
-import authAxiosInstance from '../../api/authAxiosInstance';
+import { createCheckout } from '../../api/checkoutService';
 import styles from './Checkout.module.css';
 
 const SHIPPING_OPTIONS = [
@@ -60,7 +60,8 @@ export default function Checkout() {
         address: formData.address,
         notes: formData.notes || '',
       };
-      const res = await authAxiosInstance.post('/Checkouts', payload);
+      const res = await createCheckout(payload);
+      if (!res.success) throw new Error(res.message);
       return res.data;
     },
     onSuccess: () => {
@@ -461,7 +462,7 @@ export default function Checkout() {
                 {/* Error message */}
                 {placeOrderMutation.isError && (
                   <p style={{ color: '#ef262c', fontSize: 13, marginTop: 12, textAlign: 'center' }}>
-                    {placeOrderMutation.error?.response?.data?.message ||
+                    {placeOrderMutation.error?.message ||
                       'Something went wrong. Please try again.'}
                   </p>
                 )}

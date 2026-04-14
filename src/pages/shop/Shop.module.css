@@ -1,0 +1,293 @@
+/* ── Shop Page Layout ─────────────────────────────────────────────────────── */
+.shopPage {
+  background-color: #f7f8f9;
+  min-height: 60vh;
+}
+
+/* ── Breadcrumb Bar ───────────────────────────────────────────────────────── */
+.breadcrumbBar {
+  background-color: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 14px 0;
+}
+
+.breadcrumbInner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breadcrumbLink {
+  font-size: 14px;
+  color: #6b7280;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.breadcrumbLink:hover {
+  color: #2b6b6b;
+}
+
+.breadcrumbSep {
+  font-size: 14px;
+  color: #d1d5db;
+}
+
+.breadcrumbCurrent {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+/* ── Page Title ───────────────────────────────────────────────────────────── */
+.pageHeader {
+  background-color: #fff;
+  padding: 32px 0 28px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 0;
+}
+
+.pageTitle {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 4px;
+}
+
+.pageSubtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* ── Main Content Layout ──────────────────────────────────────────────────── */
+.contentArea {
+  padding: 32px 0 48px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    display: none; /* collapsed on mobile — controlled via state in JS */
+  }
+}
+
+/* ── Sidebar ──────────────────────────────────────────────────────────────── */
+.sidebar {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  overflow: hidden;
+  position: sticky;
+  top: 24px;
+}
+
+.sidebarSection {
+  padding: 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.sidebarSection:last-child {
+  border-bottom: none;
+}
+
+.sidebarTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.todoLabel {
+  font-size: 10px;
+  background: #fef3c7;
+  color: #92400e;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.filterItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.filterCheckbox {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.filterLabel {
+  font-size: 14px;
+  color: #374151;
+}
+
+.priceSliderTrack {
+  height: 4px;
+  background: #e5e7eb;
+  border-radius: 2px;
+  margin: 16px 0 8px;
+  position: relative;
+}
+
+.priceSliderFill {
+  position: absolute;
+  left: 0;
+  right: 30%;
+  top: 0;
+  bottom: 0;
+  background: #2b6b6b;
+  border-radius: 2px;
+}
+
+.priceRange {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ── Toolbar ──────────────────────────────────────────────────────────────── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.resultCount {
+  font-size: 14px;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+.toolbarRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sortSelect {
+  font-size: 14px;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding: 8px 32px 8px 12px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-color: #fff;
+  cursor: pointer;
+  min-width: 180px;
+}
+
+.sortSelect:focus {
+  outline: none;
+  border-color: #2b6b6b;
+}
+
+.viewToggle {
+  display: flex;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.viewBtn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #fff;
+  color: #6b7280;
+  border: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.viewBtn.active {
+  background: #2b6b6b;
+  color: #fff;
+}
+
+/* ── Product Grid ─────────────────────────────────────────────────────────── */
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 1024px) {
+  .productGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .productGrid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+}
+
+/* List view variant */
+.productList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Empty / Error states ─────────────────────────────────────────────────── */
+.emptyState {
+  grid-column: 1 / -1;
+  padding: 64px 24px;
+  text-align: center;
+}
+
+.emptyIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.4;
+}
+
+.emptyTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 8px;
+}
+
+.emptyText {
+  font-size: 14px;
+  color: #9ca3af;
+  margin: 0;
+}
+
+/* ── Pagination ───────────────────────────────────────────────────────────── */
+.paginationWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 36px;
+}

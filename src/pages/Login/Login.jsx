@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
+import { publicClient } from '../../api/apiClient';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -20,8 +20,8 @@ const Login = () => {
     setApiError('');
     setIsSubmitting(true);
     try {
-      const response = await axios.post(
-        'https://knowledgeshop.runasp.net/api/auth/Account/Login',
+      const response = await publicClient.post(
+        '/auth/Account/Login',
         values
       );
 

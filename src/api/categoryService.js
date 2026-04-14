@@ -1,207 +1,98 @@
-import axios from 'axios';
+import { publicClient, authClient } from "./apiClient";
 
-// Using the knowledge shop domain as the base
-const BASE_URL = 'https://knowledgeshop.runasp.net/api';
+// ─── PUBLIC (no auth) ─────────────────────────────────────────────────────────
 
 /**
- * Validates the payload for updating a category.
+ * TODO: WAITING FOR PUBLIC CATEGORY API
+ * No public category listing endpoint is currently documented.
+ * The admin endpoint (GET /api/admin/Categories) requires auth.
+ *
+ * This function attempts GET /api/Categories — if/when the backend
+ * exposes a public equivalent, update this function accordingly.
+ *
+ * @returns {Promise<Object[]>}
  */
-const validateUpdatePayload = (id, translations, token) => {
-  if (!token) return 'Authorization token is missing.';
-  if (!id) return 'Category ID is required.';
-  
-  if (!Array.isArray(translations) || translations.length === 0) {
-    return 'At least one translation is required.';
-  }
+export const getPublicCategories = async () => {
+  const res = await publicClient.get("/Categories");
+  const data = res.data;
+  if (Array.isArray(data)) return data;
+  if (Array.isArray(data?.response)) return data.response;
+  if (Array.isArray(data?.response?.data)) return data.response.data;
+  if (Array.isArray(data?.items)) return data.items;
+  return [];
+};
 
-  for (const t of translations) {
-    if (!t.language?.trim()) return 'Each translation must have a valid language code.';
-    if (!t.name?.trim()) return `Translation name is required for language "${t.language}".`;
-  }
+// ─── ADMIN (auth required) ───────────────────────────────────────────────────
 
-  return null;
+/**
+ * GET /api/admin/Categories
+ */
+export const getAllAdminCategories = async () => {
+  const res = await authClient.get("/admin/Categories", {
+    validateStatus: (s) => s < 500,
+  });
+  const ok = res.status >= 200 && res.status < 300;
+  return {
+    success: ok,
+    status: res.status,
+    data: ok ? res.data : null,
+    message: ok
+      ? "Categories fetched successfully."
+      : `Failed to fetch categories. Status ${res.status}.`,
+  };
 };
 
 /**
- * Helper to validate just an ID and Token
+ * DELETE /api/admin/Categories/{id}
  */
-const validateIdAndToken = (id, token) => {
-  if (!token) return 'Authorization token is missing.';
-  if (!id) return 'Category ID is required.';
-  return null;
+export const deleteCategory = async (categoryId) => {
+  if (!categoryId) return { success: false, status: 0, message: "Category ID is required." };
+  const res = await authClient.delete(`/admin/Categories/${categoryId}`, {
+    validateStatus: (s) => s < 500,
+  });
+  const ok = res.status >= 200 && res.status < 300;
+  return {
+    success: ok,
+    status: res.status,
+    message: ok ? "Category deleted successfully." : `Error ${res.status}.`,
+  };
 };
 
 /**
- * Gets all categories for Admin view.
- * 
- * @param {string} token 
- * @returns {Promise<{ success: boolean, status: number, data?: any, message: string }>}
+ * PATCH /api/admin/Categories/{id}
  */
-export const getAllAdminCategories = async (token) => {
-  if (!token) return { success: false, status: 0, message: 'Authorization token is missing.' };
+export const updateCategory = async (categoryId, translations) => {
+  if (!categoryId) return { success: false, status: 0, message: "Category ID is required." };
+  if (!Array.isArray(translations) || translations.length === 0)
+    return { success: false, status: 0, message: "At least one translation is required." };
 
-  try {
-    const response = await axios.get(
-      `${BASE_URL}/admin/Categories`,
-      {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        },
-        validateStatus: (status) => status < 500,
-      }
-    );
-
-    const isSuccess = response.status >= 200 && response.status < 300;
-
-    return {
-      success: isSuccess,
-      status: response.status,
-      data: isSuccess ? response.data : null,
-      message: isSuccess 
-        ? 'Categories fetched successfully.' 
-        : `Failed to fetch categories. API returned status ${response.status}.`,
-    };
-  } catch (error) {
-    console.error('Get all categories error:', error);
-    return {
-      success: false,
-      status: error.response?.status || 500,
-      message: error.message || 'An unexpected error occurred while fetching categories.',
-    };
-  }
+  const res = await authClient.patch(
+    `/admin/Categories/${categoryId}`,
+    { translations },
+    { validateStatus: (s) => s < 500 }
+  );
+  const ok = res.status >= 200 && res.status < 300;
+  return {
+    success: ok,
+    status: res.status,
+    message: ok ? "Category updated successfully." : `Error ${res.status}.`,
+  };
 };
 
 /**
- * Deletes a category.
- * 
- * @param {number|string} categoryId 
- * @param {string} token 
- * @returns {Promise<{ success: boolean, status: number, message: string }>}
+ * PATCH /api/admin/Categories/toggle-status/{id}
  */
-export const deleteCategory = async (categoryId, token) => {
-  const validationError = validateIdAndToken(categoryId, token);
-  if (validationError) return { success: false, status: 0, message: validationError };
-
-  try {
-    const response = await axios.delete(
-      `${BASE_URL}/admin/Categories/${categoryId}`,
-      {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        },
-        validateStatus: (status) => status < 500,
-      }
-    );
-
-    const isSuccess = response.status >= 200 && response.status < 300;
-
-    return {
-      success: isSuccess,
-      status: response.status,
-      message: isSuccess 
-        ? 'Category deleted successfully.' 
-        : `Failed to delete category. API returned status ${response.status}.`,
-    };
-  } catch (error) {
-    console.error('Delete category error:', error);
-    return {
-      success: false,
-      status: error.response?.status || 500,
-      message: error.message || 'An unexpected error occurred while deleting category.',
-    };
-  }
-};
-
-/**
- * Updates a category's basic details (translations).
- * 
- * @param {number|string} categoryId 
- * @param {Array<{name: string, language: string}>} translations 
- * @param {string} token 
- * @returns {Promise<{ success: boolean, status: number, message: string }>}
- */
-export const updateCategory = async (categoryId, translations, token) => {
-  const validationError = validateUpdatePayload(categoryId, translations, token);
-  
-  if (validationError) {
-    return { success: false, status: 0, message: validationError };
-  }
-
-  try {
-    const payload = { translations };
-    
-    const response = await axios.patch(
-      `${BASE_URL}/admin/Categories/${categoryId}`,
-      payload,
-      {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        validateStatus: (status) => status < 500, 
-      }
-    );
-
-    const isSuccess = response.status >= 200 && response.status < 300;
-
-    return {
-      success: isSuccess,
-      status: response.status,
-      message: isSuccess 
-        ? 'Category updated successfully.' 
-        : `Failed to update category. API returned status ${response.status}.`,
-    };
-  } catch (error) {
-    console.error('Update category error:', error);
-    return {
-      success: false,
-      status: error.response?.status || 500,
-      message: error.message || 'An unexpected error occurred during update.',
-    };
-  }
-};
-
-/**
- * Toggles the activate/deactivate status of a category.
- * 
- * @param {number|string} categoryId 
- * @param {string} token 
- * @returns {Promise<{ success: boolean, status: number, message: string }>}
- */
-export const toggleCategoryStatus = async (categoryId, token) => {
-  const validationError = validateIdAndToken(categoryId, token);
-  
-  if (validationError) {
-    return { success: false, status: 0, message: validationError };
-  }
-
-  try {
-    const response = await axios.patch(
-      `${BASE_URL}/admin/Categories/toggle-status/${categoryId}`,
-      {}, // empty body
-      {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-        validateStatus: (status) => status < 500,
-      }
-    );
-
-    const isSuccess = response.status >= 200 && response.status < 300;
-
-    return {
-      success: isSuccess,
-      status: response.status,
-      message: isSuccess 
-        ? 'Category status toggled successfully.' 
-        : `Failed to toggle status. API returned status ${response.status}.`,
-    };
-  } catch (error) {
-    console.error('Toggle status error:', error);
-    return {
-      success: false,
-      status: error.response?.status || 500,
-      message: error.message || 'An unexpected error occurred while toggling status.',
-    };
-  }
+export const toggleCategoryStatus = async (categoryId) => {
+  if (!categoryId) return { success: false, status: 0, message: "Category ID is required." };
+  const res = await authClient.patch(
+    `/admin/Categories/toggle-status/${categoryId}`,
+    {},
+    { validateStatus: (s) => s < 500 }
+  );
+  const ok = res.status >= 200 && res.status < 300;
+  return {
+    success: ok,
+    status: res.status,
+    message: ok ? "Category status toggled." : `Error ${res.status}.`,
+  };
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import useCart from '../hooks/useCart';
 import {
   Box,
   TextField,
@@ -18,6 +19,9 @@ import logoImg from '../assets/images/logo-2.svg';
 import styles from './Header.module.css';
 
 const Header = () => {
+  const { data: cartItems } = useCart();
+  const cartTotal = cartItems?.reduce((sum, item) => sum + (item.quantity || 1), 0) || 0;
+
   return (
     <Box className={styles.header}>
       <div className="container-x">
@@ -61,25 +65,33 @@ const Header = () => {
 
           {/* Right Icons */}
           <Box className={styles.iconContainer}>
-            <IconButton className={styles.iconButton}>
+            <IconButton 
+              className={styles.iconButton} 
+              title="Compare (TODO: WAITING FOR API SUPPORT)" 
+              disabled
+              sx={{ opacity: 0.5 }}
+            >
               <CompareArrowsIcon />
             </IconButton>
             
-            <IconButton className={styles.iconButton}>
-              <Badge badgeContent={2} color="error">
-                <FavoriteBorderIcon />
-              </Badge>
+            <IconButton 
+              className={styles.iconButton} 
+              title="Wishlist (TODO: WAITING FOR API SUPPORT)" 
+              disabled
+              sx={{ opacity: 0.5 }}
+            >
+              <FavoriteBorderIcon />
             </IconButton>
             
             <Link to="/cart" className={styles.cartLink}>
               <IconButton className={styles.iconButton}>
-                <Badge badgeContent={3} color="error">
+                <Badge badgeContent={cartTotal} color="error">
                   <ShoppingCartOutlinedIcon />
                 </Badge>
               </IconButton>
             </Link>
             
-            <Link to="/login" className={styles.profileLink}>
+            <Link to="/profile" className={styles.profileLink}>
               <IconButton className={styles.iconButton}>
                 <PersonOutlineIcon />
               </IconButton>

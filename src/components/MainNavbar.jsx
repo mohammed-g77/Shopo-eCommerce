@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import axios from 'axios';
+import { publicClient } from '../api/apiClient';
 
 import styles from './MainNavbar.module.css';
 
@@ -24,14 +24,7 @@ const MainNavbar = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await axios.get(
-          'https://knowledgeshop.runasp.net/api/Categories',
-          {
-            headers: {
-              'Accept-Language': 'en',
-            },
-          }
-        );
+        const res = await publicClient.get('/Categories');
         const data = res.data?.response ?? res.data;
         setCategories(Array.isArray(data) ? data : []);
       } catch (error) {
@@ -47,7 +40,7 @@ const MainNavbar = () => {
     { name: 'Shop', path: '/shop' },
     { name: 'Pages', path: '/pages' },
     { name: 'About', path: '/about' },
-    { name: 'Blog', path: '/blog' },
+    { name: 'Blog', path: '/blogs' },
     { name: 'Contact', path: '/contact' },
   ];
 

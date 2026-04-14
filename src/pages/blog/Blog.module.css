@@ -1,0 +1,372 @@
+/* ─── Blog Page ──────────────────────────────────────── */
+.blogPage {
+  background-color: #fff;
+  min-height: 100vh;
+}
+
+/* ─── Breadcrumb Banner ────────────────────────────── */
+.breadcrumbBanner {
+  background-color: #fafafa;
+  padding: 32px 0;
+  border-bottom: 1px solid #ececec;
+}
+
+.breadcrumbInner {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.breadcrumbTitle {
+  font-size: 30px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.breadcrumbTrail {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #9a9a9a;
+}
+
+.breadcrumbLink {
+  color: #1a1a1a;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.breadcrumbLink:hover {
+  color: #ffbb38;
+}
+
+.breadcrumbSep {
+  color: #c4c4c4;
+  font-size: 12px;
+}
+
+.breadcrumbCurrent {
+  color: #ffbb38;
+  font-weight: 500;
+}
+
+/* ─── Main Blog Layout ─────────────────────────────── */
+.blogContent {
+  padding: 60px 0;
+}
+
+.blogLayout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+@media (max-width: 991px) {
+  .blogLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Blog Grid (Left Side) ────────────────────────── */
+.blogGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+@media (max-width: 768px) {
+  .blogGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Blog Card ────────────────────────────────────── */
+.blogCard {
+  background: #fff;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+}
+
+.blogCard:hover {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.blogImageWrap {
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  position: relative;
+  background-color: #f5f5f5;
+}
+
+.blogImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.blogCard:hover .blogImage {
+  transform: scale(1.05);
+}
+
+.blogDate {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: #ffbb38;
+  color: #1a1a1a;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.blogInfo {
+  padding: 24px;
+}
+
+.blogMeta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 12px;
+}
+
+.blogMeta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.blogMetaIcon {
+  width: 14px;
+  height: 14px;
+  color: #2b6b6b;
+}
+
+.blogTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 12px 0;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.blogTitle:hover {
+  color: #2b6b6b;
+}
+
+.blogExcerpt {
+  font-size: 15px;
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0 0 20px 0;
+}
+
+.readMoreBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #2b6b6b;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.readMoreBtn:hover {
+  color: #1a1a1a;
+}
+
+/* ─── Pagination ───────────────────────────────────── */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 50px;
+}
+
+.pageBtn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid #eaeaea;
+  border-radius: 4px;
+  color: #1a1a1a;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pageBtn:hover {
+  background: #ffbb38;
+  border-color: #ffbb38;
+}
+
+.pageBtnActive {
+  background: #2b6b6b;
+  color: #fff;
+  border-color: #2b6b6b;
+}
+
+.pageBtnActive:hover {
+  background: #1e4d4d;
+  border-color: #1e4d4d;
+}
+
+/* ─── Sidebar (Right Side) ─────────────────────────── */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.sidebarWidget {
+  background: #fff;
+  border: 1px solid #eaeaea;
+  padding: 24px;
+  border-radius: 8px;
+}
+
+.widgetTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 20px 0;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+/* Search Sidebar */
+.searchForm {
+  display: flex;
+  height: 46px;
+  border: 1px solid #eaeaea;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.searchInput {
+  flex: 1;
+  padding: 0 16px;
+  border: none;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  color: #1a1a1a;
+  outline: none;
+  background: #fafafa;
+}
+
+.searchBtn {
+  width: 50px;
+  background: #ffbb38;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a1a1a;
+  transition: background-color 0.2s;
+}
+
+.searchBtn:hover {
+  background: #e6a52e;
+}
+
+/* Categories Sidebar */
+.catList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.catItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  color: #6b7280;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.catItem:hover {
+  color: #2b6b6b;
+}
+
+/* Recent Posts Sidebar */
+.recentPostsList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.recentPostItem {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.recentPostImgWrap {
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #f5f5f5;
+}
+
+.recentPostImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recentPostInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.recentPostTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  line-height: 1.4;
+  margin: 0;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.recentPostTitle:hover {
+  color: #2b6b6b;
+}
+
+.recentPostDate {
+  font-size: 12px;
+  color: #9a9a9a;
+}

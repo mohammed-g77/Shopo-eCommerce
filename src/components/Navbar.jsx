@@ -136,7 +136,7 @@ const Navbar = () => {
 
              
             <button 
-              onClick={() => navigate("/register")}
+              onClick={() => navigate("/shop")}
               className="bg-gray-900 hover:bg-gray-800 text-white px-6 py-2 rounded transition-colors font-medium">
               Shop Now
             </button>

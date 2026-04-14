@@ -1,6 +1,6 @@
 // Register.jsx
 import React, { useEffect, useRef, useState } from "react";
-import axios from "axios";
+import { publicClient } from "../../api/apiClient";
 
 import {
   Box,
@@ -26,7 +26,7 @@ import { useNavigate } from "react-router-dom";
 import { RegisterSchema } from "../../validations/RegisterSchema";
 import "./Register.css";
 
-const API_URL = "https://knowledgeshop.runasp.net/api/Auth/Account/Register";
+const API_URL = "/Auth/Account/Register";
 
 export default function Register({ illustrationSrc = "/login_illustration.png" }) {
   const navigate = useNavigate();
@@ -85,13 +85,13 @@ const registerForm = async (values) => {
   };
 
   try {
-    const response = await axios.post(API_URL, payload, {
+    const response = await publicClient.post(API_URL, payload, {
       headers: { "Content-Type": "application/json" },
     });
 
     console.log("REGISTER RESPONSE:", response?.data ?? response);
 
-     await axios.post("https://knowledgeshop.runasp.net/api/auth/Account/SendCode", {
+     await publicClient.post("/auth/Account/SendCode", {
       email: payload.email,
     });
 
