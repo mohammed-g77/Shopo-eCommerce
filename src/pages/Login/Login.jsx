@@ -13,39 +13,36 @@ import { Link } from 'react-router-dom';
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [rememberMe, setRememberMe] = useState(false);
+  const [apiError, setApiError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const loginForm = async (values) => {
-    console.log(values);
+    setApiError('');
+    setIsSubmitting(true);
     try {
       const response = await axios.post(
         'https://knowledgeshop.runasp.net/api/auth/Account/Login',
         values
       );
 
-      console.log('Login Response Data:', response.data);
-
-      const { accessToken, refreshToken, accessTokenExpiresAt, message, success } = response.data;
+      const { accessToken, refreshToken, accessTokenExpiresAt, message } = response.data;
 
       if (response.status === 200 && accessToken) {
         localStorage.setItem('token', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
         localStorage.setItem('tokenExpiry', accessTokenExpiresAt);
-
-        console.log('Login successful:', message);
-        window.location.href = '/';  
+        window.location.href = '/';
       } else {
-        console.warn('Login failed:', message);
+        setApiError(message || 'Login failed. Please try again.');
       }
     } catch (err) {
-      console.error('Login error:', err);
-
-      if (err.response) {
-        console.log('Error Response:', err.response.data);
-      } else if (err.request) {
-        console.log('No response received:', err.request);
-      } else {
-        console.log('General Error:', err.message);
-      }
+      const msg =
+        err.response?.data?.message ||
+        err.response?.data?.title ||
+        'Something went wrong. Please try again.';
+      setApiError(msg);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -159,11 +156,27 @@ const Login = () => {
                             </Link>
                         </Box>
 
+                        {/* API Error Message */}
+                        {apiError && (
+                            <Box sx={{
+                                mb: 2,
+                                p: 1.5,
+                                bgcolor: '#fef2f2',
+                                border: '1px solid #fecaca',
+                                borderRadius: '6px',
+                            }}>
+                                <Typography variant="body2" sx={{ color: '#dc2626', fontSize: '14px', fontWeight: 500 }}>
+                                    {apiError}
+                                </Typography>
+                            </Box>
+                        )}
+
                         {/* Login Button */}
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
+                            disabled={isSubmitting}
                             sx={{
                                 bgcolor: '#2C2C2C',
                                 color: 'white',
@@ -174,10 +187,14 @@ const Login = () => {
                                 mb: 3,
                                 '&:hover': {
                                     bgcolor: '#1a1a1a'
+                                },
+                                '&:disabled': {
+                                    bgcolor: '#888',
+                                    color: '#fff',
                                 }
                             }}
                         >
-                            Log In
+                            {isSubmitting ? 'Logging in…' : 'Log In'}
                         </Button>
 
                         {/* Google Sign In */}

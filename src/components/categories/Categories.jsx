@@ -40,7 +40,7 @@ export default function Categories() {
         setIsError(false);
 
         // Fetching from the public Categories endpoint using your axiosInstance
-        const response = await axiosInstance.get('/Categories', {
+        const response = await axiosInstance.get('/Categories?limit=10', {
           headers: { "Accept-Language": "en" }
         });
 
